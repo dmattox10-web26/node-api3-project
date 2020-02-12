@@ -11,8 +11,8 @@ server.get('/', (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`);
 });
 
-server.get('api/users', userRouter)
-server.get('api/posts', userRouter)
+server.use('/api/users', userRouter)
+server.use('/api/posts', postRouter)
 
 //custom middleware
 
