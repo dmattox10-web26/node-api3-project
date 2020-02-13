@@ -9,6 +9,9 @@ router.post('/', validateUser, (req, res) => {
   .then(user => {
     res.status(201).json(user)
   })
+  .catch(err => {
+    res.status(500).json(err)
+  })
 });
 
 router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
@@ -16,6 +19,9 @@ router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
   Posts.insert({...req.body, user_id: req.params.id})
   .then(post => {
     res.status(201).json(post)
+  })
+  .catch(err => {
+    res.status(500).json(err)
   })
 });
 
@@ -25,6 +31,9 @@ router.get('/', (req, res) => {
   .then(users => {
     res.status(200).json(users)
   })
+  .catch(err => {
+    res.status(500).json(err)
+  })
 });
 
 router.get('/:id', validateUserId, (req, res) => {
@@ -32,6 +41,9 @@ router.get('/:id', validateUserId, (req, res) => {
   Users.getById(req.params.id)
   .then(user => {
     res.status(200).json(user)
+  })
+  .catch(err => {
+    res.status(500).json(err)
   })
 });
 
@@ -41,6 +53,9 @@ router.get('/:id/posts', validateUserId, (req, res) => {
   .then(posts => {
     res.status(200).json(posts)
   })
+  .catch(err => {
+    res.status(500).json(err)
+  })
 });
 
 router.delete('/:id', validateUserId, (req, res) => {
@@ -49,11 +64,20 @@ router.delete('/:id', validateUserId, (req, res) => {
   .then(result => {
     res.status(200).json(result)
   })
+  .catch(err => {
+    res.status(500).json(err)
+  })
 });
 
 router.put('/:id', validateUserId, validateUser, (req, res) => {
   // do your magic!
   Users.update(req.params.id, req.body)
+  .then(info => {
+    res.status(200).json(info)
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
 });
 
 //custom middleware
